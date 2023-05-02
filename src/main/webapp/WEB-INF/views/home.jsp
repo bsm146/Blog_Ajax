@@ -18,35 +18,33 @@
 
 <body>
 
-<button class="push" value="red">red</button>
-<button class="push" value="yellow">yellow</button>
-<button class="push" value="green">green</button>
-<button id="base" value="base">base</button>
+<button class="color" value="red">red</button>
+<button class="color" value="yellow">yellow</button>
+<button class="color" value="green">green</button>
+<button id="reset" value="reset">reset</button>
 <br>
 <div id="addColor"></div>
 
+<input name="id" id="id">
+<input name="password" id="password">
+<button id="join">가입</button>
 
 <script>
 
-    $('.push').click(function () {
-
-        // console.log($(this).val());
+    $('.color').on('click', function () {
 
         $.ajax({
 
-            url: '/ajaxTest',
+            url: '/color',
             type: 'POST',
-            // data: {
-            //     'name': '홍길동',
-            //     'age': 20
-            // },
             data: {
                 'color': $(this).val()
             },
 
             success: function (result) {
+
                 console.log('성공')
-                console.log(result);
+                console.log('돌아온 색깔 : ' + result);
 
                 let color;
 
@@ -74,12 +72,34 @@
                 console.log('')
             }
         })
-
     })
 
-    // push 누르면 div 초기화
-    $('#base').click(function () {
+    $('#reset').click(function () {
+
         $('#addColor').text('');
+        console.log('리셋');
+        console.log('');
+    })
+
+    // 가입
+    $('#join').on('click', function () {
+
+        let id = $('#id').val();
+        let password = $('#password').val();
+
+        $.ajax({
+
+            url: '/join',
+            type: 'post',
+            data: {
+                id: id,
+                password: password
+            },
+            success: function (data) {
+                console.log(data[0].id);
+                console.log(data[0].password);
+            }
+        })
     })
 
 </script>

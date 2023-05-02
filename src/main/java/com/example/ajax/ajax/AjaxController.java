@@ -2,10 +2,10 @@ package com.example.ajax.ajax;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Controller
 @RequiredArgsConstructor
@@ -19,7 +19,7 @@ public class AjaxController {
         return "home";
     }
 
-    @PostMapping("/ajaxTest")
+    @PostMapping("/color")
     @ResponseBody
     public String login(@RequestParam String color) {
 
@@ -38,6 +38,18 @@ public class AjaxController {
         return returnColor;
     }
 
+    @PostMapping("/join")
+    @ResponseBody
+    public List<AjaxUser> join(@ModelAttribute AjaxUser ajaxUser) {
+
+        System.out.println(ajaxUser.getId());
+        System.out.println(ajaxUser.getPassword());
+
+        List<AjaxUser> userList = new ArrayList<>();
+        userList.add(ajaxUser);
+
+        return userList;
+    }
 
 
 }
